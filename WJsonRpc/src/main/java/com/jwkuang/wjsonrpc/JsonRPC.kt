@@ -15,7 +15,7 @@ import kotlin.Exception
  * Created on 9/14/21
  * @author jwkuang
  */
-class JsonRPC(private val url: URI) : WebSocketClient(url) {
+class JsonRPC(url: URI) : WebSocketClient(url) {
     companion object {
         var CALL_SERVER_TIME_OUT: Long = 10 * 1000
         var MAX_RECONNECT_TIME = 5
@@ -91,10 +91,10 @@ class JsonRPC(private val url: URI) : WebSocketClient(url) {
     }
 
     override fun onClose(code: Int, reason: String?, remote: Boolean) {
+        isReconnecting.set(false)
         if (needReconnect && reconnectCount.get() < MAX_RECONNECT_TIME) {
             tryReconnect()
         } else {
-            isReconnecting.set(false)
             requestMap.forEach {
                 it.value.resume(closeResponse(), null)
             }
@@ -172,12 +172,15 @@ class JsonRPC(private val url: URI) : WebSocketClient(url) {
 
     data class Response(val success: Boolean, val error: Error?, val result: Any?)
 
-    data class Error(val code: Int, val message: String, val data: Any?)
+    data class Error(val code: Int, val message: String, val data: Any?) {
+        override fun toString(): String {
+            return "{code: $code, message: $message, data: $data}"
+        }
+    }
 
     object ErrorCode {
         const val TIME_OUT = -30000
         const val CLOSE = -30001
-        const val INVALID_REQUEST = -32600
         const val PARSE_ERROR = -32700
     }
 }

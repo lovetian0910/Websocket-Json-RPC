@@ -7,26 +7,22 @@
         tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button_start"
+        android:id="@+id/websocket_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="START"
+        android:text="WebSocket"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:onClick="clickStart"/>
+        android:layout_marginLeft="10dp"
+        android:onClick="clickWebsocket"/>
     <Button
-        android:id="@+id/button_continue"
+        android:id="@+id/websocket_notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Continue!"
-        app:layout_constraintTop_toBottomOf="@id/button_start"
+        android:text="Notification"
+        app:layout_constraintTop_toBottomOf="@id/websocket_test"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:onClick="clickContinue"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/button_continue"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:onClick="clickStartNoContinue"/>
+        android:layout_marginLeft="10dp"
+        android:onClick="clickNotification"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
